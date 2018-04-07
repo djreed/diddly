@@ -30,6 +30,10 @@ io.on('connection', function(socket){
         socket.broadcast.emit('new_player', user);
     });
 
+    socket.on("fire_bullet", function(bullet) {
+        socket.broadcast.emit('fire_bullet', bullet);
+    });
+
     socket.on('move_player', function(user){
         users[me.id] = user;
         socket.broadcast.emit('move_player', user);

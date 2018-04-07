@@ -106,7 +106,9 @@ class Player {
     if (this.game.time.now < this.fireAfter) {
       return; //too soon
     }
-    console.log(angle)
+    var bullet = { x: this.x, y: this.y, angle: angle};
+    this.socket.emit('fire_bullet', bullet);
+    this.fireAfter = this.game.time.now + this.fireRate
   }
   moveUp() {
     this.y -= this.speed;
