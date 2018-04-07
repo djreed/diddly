@@ -31,6 +31,7 @@ io.on('connection', function(socket){
     });
 
     socket.on("fire_bullet", function(bullet) {
+        socket.emit('fire_bullet', bullet)
         socket.broadcast.emit('fire_bullet', bullet);
     });
 

@@ -59,8 +59,8 @@ class Game {
             });
             
             this.socket.on('fire_bullet', (bullet) => {
-                console.log('bullet', bullet);
                 this.bullets.push(bullet);
+                console.log(this.bullets)
             });
 
             this.socket.on('kill_player', (user) => {
