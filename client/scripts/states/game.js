@@ -57,6 +57,11 @@ class Game {
                     this.players[enemy.id].move(enemy);
                 }
             });
+            
+            this.socket.on('fire_bullet', (bullet) => {
+                this.bullets.push(bullet);
+                console.log(this.bullets)
+            });
 
             this.socket.on('kill_player', (user) => {
                 if(this.player.id == user.id) {
