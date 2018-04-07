@@ -1,0 +1,20 @@
+{
+  "name": "HackThePack2018",
+  "version": "1.0.0",
+  "description": "Test Multiplayer Game for HackThePack",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "VILLERS Mickaël",
+  "contributors": [],
+  "dependencies": {
+    "bower": "*",
+    "express": "^4.12.4",
+    "socket.io": "^1.3.5",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {}
+}
