@@ -46,11 +46,11 @@ class Enemy {
         this.sprite.body.collides([this.groupCollision[0], this.groupCollision[2]]);
     }
 
-    move(particle){
+    move(enemy){
         if(this.sprite.alive){
             this.sprite.kill();
         }
-        this.enemy = particle;
+        this.enemy = enemy;
         this.generateSprite();
     }
 }
