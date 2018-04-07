@@ -14,7 +14,6 @@
     "bower": "*",
     "express": "^4.12.4",
     "socket.io": "^1.3.5",
-    "uuid": "^3.2.1"
   },
   "devDependencies": {}
 }
