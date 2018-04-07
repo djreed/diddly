@@ -2,16 +2,16 @@
  * Created by viller_m on 19/05/15.
  */
 class Player {
-  constructor(game, socket, groupCollision) {
+  constructor(game, socket, collisions) {
     this.SPRITE_MOVE_FACTOR = 50;
 
     this.game = game;
 
     this.socket = socket;
-    this.groupCollision = groupCollision;
+    this.collisions = collisions;
 
     this.id = socket.io.engine.id;
-    this.color = '#0000FF';
+    this.color = '#00FF00';
     this.health = 20;
     this.speed = 5;
     this.x = this.game.world.randomX;
@@ -52,8 +52,8 @@ class Player {
     this.sprite.body.setCircle(this.sprite.width / 2);
     this.sprite.body.fixedRotation = false;
     this.sprite.body.collideWorldBounds = true;
-    this.sprite.body.setCollisionGroup(this.groupCollision[0]);
-    this.sprite.body.collides(this.groupCollision[2], this.bulletsCallback, this);
+    this.sprite.body.setCollisionGroup(this.collisions["current"]);
+    this.sprite.body.collides(this.collisions["bullets"], this.bulletsCallback, this);
   }
 
   bulletsCallback(body1, body2) {
@@ -85,7 +85,6 @@ class Player {
     else if (this.cursors.right.isDown) { this.moveRight(); }
   
     game.debug.text('speed: ' + this.sprite.speed, 32, 120);
-    game.debug.text(this.sprite.health, this.sprite.x - game.camera.x - 10, this.sprite.y - game.camera.y+ 5);
 
     this.socket.emit('move_player', this.toJson());
   }

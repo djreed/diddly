@@ -2,7 +2,7 @@
 
 import Enemy from 'scripts/class/enemy';
 import Player from 'scripts/class/player';
-import Bullets from 'scripts/class/bullets';
+//import Bullets from 'scripts/class/bullets';
 
 class Game {
 
@@ -14,8 +14,6 @@ class Game {
         game.load.spritesheet('bullet', 'assets/sprites/rgblaser.png', 4, 4);
 
         var WIDTH = 500;
-        var WHITE = '#FFFFFF';
-        var BLACK = '#000000';
         var RED = '#FF0000';
         var GREEN = '#00FF00';
         var GREY = '#555555';
@@ -25,7 +23,7 @@ class Game {
         game.physics.p2.restitution = 0.8;
 
         game.stage.backgroundColor = '#FFFFFF';
-        game.world.setBounds(0, 0, WIDTH, 500);
+        game.world.setBounds(0, 0, WIDTH, WIDTH);
         game.add.tileSprite(0, 0, game.world.width, game.world.height, 'grid');
 
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
@@ -33,7 +31,7 @@ class Game {
         var groupPlayer = game.physics.p2.createCollisionGroup();
         var groupPlayers = game.physics.p2.createCollisionGroup();
         var groupBullet = game.physics.p2.createCollisionGroup();
-        this.groupCollision = [groupPlayer, groupPlayers, groupBullet];
+        this.collisionGroups = { current: groupPlayer, players: groupPlayers, bullets: groupBullet};
         game.physics.p2.updateBoundsCollisionGroup();
 
         this.groupBullets = game.add.group();
@@ -45,12 +43,12 @@ class Game {
 
     setEventHandlers(game){
         this.socket.on('connect', () => {
-            this.player = new Player(game, this.socket, this.groupCollision);
+            this.player = new Player(game, this.socket, this.collisionGroups);
             this.socket.emit('new_player', this.player.toJson());
 
             // new player
             this.socket.on('new_player', (enemy) => {
-                this.players[enemy.id] = new Enemy(game, enemy, this.groupCollision);
+                this.players[enemy.id] = new Enemy(game, enemy, this.collisionGroups);
             });
 
             // Player
@@ -83,7 +81,6 @@ class Game {
         }
 
         game.debug.cameraInfo(game.camera, 32, 32);
-        game.debug.text('fps: '+ game.time.fps || '--', 32, 140);
 
         //game.world.scale.set(1);
     }
