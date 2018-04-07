@@ -9,8 +9,8 @@ class Player {
 
     this.id = socket.io.engine.id;
     this.color = '#0000FF';
-    this.mass = 20;
-    this.speed = 100;
+    this.health = 20;
+    this.speed = 5;
     this.x = this.game.world.randomX;
     this.y = this.game.world.randomY;
 
@@ -29,18 +29,18 @@ class Player {
 
       this.sprite.id = this.id;
       this.sprite.color = this.color;
-      this.sprite.mass = this.mass;
-      this.sprite.speed = this.speed / this.mass;
+      this.sprite.health = this.health;
+      this.sprite.speed = this.speed;
 
       this.game.camera.follow(this.sprite);
   }
 
   generateCircle(){
-    var bitmapSize = this.mass * 2
+    var bitmapSize = this.health * 2
     var bmd = this.game.add.bitmapData(bitmapSize, bitmapSize);
     bmd.ctx.fillStyle = this.color;
     bmd.ctx.beginPath();
-    bmd.ctx.arc(this.mass, this.mass, this.mass, 0, Math.PI*2, true);
+    bmd.ctx.arc(this.health, this.health, this.health, 0, Math.PI*2, true);
     bmd.ctx.closePath();
     bmd.ctx.fill();
     return bmd;
@@ -64,7 +64,7 @@ class Player {
       id: this.sprite.id,
       username: this.sprite.username,
       speed: this.sprite.speed,
-      mass: this.sprite.mass,
+      health: this.sprite.health,
       color: this.sprite.color,
       x: this.sprite.x,
       y: this.sprite.y,
