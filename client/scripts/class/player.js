@@ -11,6 +11,8 @@ class Player {
     this.color = '#0000FF';
     this.health = 20;
     this.speed = 5;
+    this.fireRate = 100;
+    this.fireAfter = 0;
     this.x = this.game.world.randomX;
     this.y = this.game.world.randomY;
 
@@ -25,19 +27,19 @@ class Player {
   }
 
   generateSprite(){
-      var bmd = this.generateCircle(this.color);
+    var bmd = this.generateCircle(this.color);
 
-      this.sprite = this.game.add.sprite(this.x, this.y, bmd);
-      this.game.physics.p2.enable(this.sprite, false);
+    this.sprite = this.game.add.sprite(this.x, this.y, bmd);
+    this.game.physics.p2.enable(this.sprite, false);
 
-      this.setCollision();
+    this.setCollision();
 
-      this.sprite.id = this.id;
-      this.sprite.color = this.color;
-      this.sprite.health = this.health;
-      this.sprite.speed = this.speed;
+    this.sprite.id = this.id;
+    this.sprite.color = this.color;
+    this.sprite.health = this.health;
+    this.sprite.speed = this.speed;
 
-      this.game.camera.follow(this.sprite);
+    this.game.camera.follow(this.sprite);
   }
 
   generateCircle(){
@@ -84,6 +86,9 @@ class Player {
     if (this.cursors.left.isDown || this.wasd.left.isDown) { if (this.x - this.sprite.speed > 0) { this.x -= this.sprite.speed; } }
     else if (this.cursors.right.isDown || this.wasd.right.isDown) { if (this.x + this.sprite.speed < this.game.world.width) { this.x += this.sprite.speed; } }
 
+
+    if (this.game.input.activePointer.isDown) { this.fireBullet(this.game.physics.arcade.angleToPointer(this.sprite)) }
+
     game.debug.text('speed: ' + this.sprite.speed, 32, 120);
     game.debug.text(this.sprite.mass, this.sprite.x - game.camera.x - 10, this.sprite.y - game.camera.y+ 5);
 
@@ -91,6 +96,13 @@ class Player {
     this.generateSprite();
 
     this.socket.emit('move_player', this.toJson());
+  }
+
+  fireBullet(angle) {
+    if (this.game.time.now < this.fireAfter) {
+      return; //too soon
+    }
+    console.log(angle)
   }
 }
 
