@@ -1,12 +1,12 @@
 /**
  * Created by viller_m on 19/05/15.
  */
-class Particules {
-    constructor(game, particule, groupColision, groupParticules) {
+class Bullets {
+    constructor(game, bullet, groupCollision, groupParticles) {
         this.game = game;
         this.particule = particule;
-        this.groupColision = groupColision;
-        this.groupParticules = groupParticules;
+        this.groupCollision = groupCollision;
+        this.groupBullets = groupParticles;
         this.generateSprite();
     }
 
@@ -16,7 +16,7 @@ class Particules {
         this.sprite = this.game.add.sprite(this.particule.x, this.particule.y, bmd);
         this.game.physics.p2.enable(this.sprite, false);
 
-        this.setColision();
+        this.setCollision();
 
         this.sprite.id = this.particule.id;
         this.sprite.mass = this.particule.mass;
@@ -36,17 +36,17 @@ class Particules {
         this.sprite.body.static = true;
         this.sprite.body.setCircle(this.sprite.width / 2);
         this.sprite.body.fixedRotation = false;
-        this.sprite.body.setCollisionGroup(this.groupColision[2]);
-        this.sprite.body.collides([this.groupColision[0], this.groupColision[1]]);
+        this.sprite.body.setCollisionGroup(this.groupCollision[2]);
+        this.sprite.body.collides([this.groupCollision[0], this.groupCollision[1]]);
     }
 
-    move(particle){
+    move(bullet){
         if(this.sprite.alive){
             this.sprite.kill();
         }
-        this.particule = particle;
+        this.bullet = bullet;
         this.generateSprite();
     }
 }
 
-export default Particules;
+export default Bullets;

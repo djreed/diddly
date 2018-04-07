@@ -17,7 +17,7 @@ class Game {
         game.physics.p2.restitution = 0.8;
 
         game.stage.backgroundColor = '#000';
-        game.world.setBounds(0, 0, 5000, 5000);
+        game.world.setBounds(0, 0, 500, 500);
         game.add.tileSprite(0, 0, game.world.width, game.world.height, 'grid');
 
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
