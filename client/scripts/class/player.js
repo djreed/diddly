@@ -3,7 +3,10 @@
  */
 class Player {
   constructor(game, socket, groupCollision) {
+    this.SPRITE_MOVE_FACTOR = 50;
+
     this.game = game;
+
     this.socket = socket;
     this.groupCollision = groupCollision;
 
@@ -14,8 +17,7 @@ class Player {
     this.x = this.game.world.randomX;
     this.y = this.game.world.randomY;
 
-    this.cursors = game.input.keyboard.createCursorKeys();
-
+    this.cursors = this.game.input.keyboard.createCursorKeys();
     this.generateSprite();
   }
 
@@ -49,6 +51,7 @@ class Player {
   setCollision() {
     this.sprite.body.setCircle(this.sprite.width / 2);
     this.sprite.body.fixedRotation = false;
+    this.sprite.body.collideWorldBounds = true;
     this.sprite.body.setCollisionGroup(this.groupCollision[0]);
     this.sprite.body.collides(this.groupCollision[2], this.bulletsCallback, this);
   }
@@ -74,18 +77,37 @@ class Player {
   }
 
   update(game){
-    if (this.cursors.up.isDown) { if (this.y - this.sprite.speed > 0) { this.y -= this.sprite.speed; } }
-    else if (this.cursors.down.isDown) { if (this.y + this.sprite.speed < this.game.world.height) { this.y += this.sprite.speed; } }
-    if (this.cursors.left.isDown) { if (this.x - this.sprite.speed > 0) { this.x -= this.sprite.speed; } }
-    else if (this.cursors.right.isDown) { if (this.x + this.sprite.speed < this.game.world.width) { this.x += this.sprite.speed; } }
+    this.sprite.body.setZeroVelocity();
 
+    if (this.cursors.up.isDown) { this.moveUp(); }
+    else if (this.cursors.down.isDown) { this.moveDown(); }
+    if (this.cursors.left.isDown) { this.moveLeft(); }
+    else if (this.cursors.right.isDown) { this.moveRight(); }
+  
     game.debug.text('speed: ' + this.sprite.speed, 32, 120);
     game.debug.text(this.sprite.mass, this.sprite.x - game.camera.x - 10, this.sprite.y - game.camera.y+ 5);
 
-    this.sprite.kill();
-    this.generateSprite();
-
     this.socket.emit('move_player', this.toJson());
+  }
+
+  moveUp() {
+    this.y -= this.speed;
+    this.sprite.body.moveUp(this.speed * this.SPRITE_MOVE_FACTOR);
+  }
+
+  moveDown() {
+    this.y += this.speed;
+    this.sprite.body.moveDown(this.speed * this.SPRITE_MOVE_FACTOR);
+  }
+
+  moveLeft() {
+    this.x -= this.speed;
+    this.sprite.body.moveLeft(this.speed * this.SPRITE_MOVE_FACTOR);
+  }
+
+  moveRight() {
+    this.x += this.speed;
+    this.sprite.body.moveRight(this.speed * this.SPRITE_MOVE_FACTOR);
   }
 }
 

@@ -10,6 +10,8 @@ class Game {
         this.socket = io.connect(window.location.host);
         this.players = [];
         this.bullets = [];
+        this.weapons = [];
+        game.load.spritesheet('bullet', 'assets/sprites/rgblaser.png', 4, 4);
 
         var WIDTH = 500;
         var WHITE = '#FFFFFF';
