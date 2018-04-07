@@ -23,7 +23,7 @@ class Preload {
     }
 
     onLoadComplete() {
-        this.game.state.start('menu', true, false);
+        this.game.state.start('game', true, false);
     }
 }
 

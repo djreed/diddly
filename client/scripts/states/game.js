@@ -29,9 +29,9 @@ class Game {
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
 
         var groupPlayer = game.physics.p2.createCollisionGroup();
-        var groupPlayers = game.physics.p2.createCollisionGroup();
+        var groupEnemies = game.physics.p2.createCollisionGroup();
         var groupBullet = game.physics.p2.createCollisionGroup();
-        this.collisionGroups = { current: groupPlayer, players: groupPlayers, bullets: groupBullet};
+        this.collisionGroups = { current: groupPlayer, enemies: groupEnemies, bullets: groupBullet};
         game.physics.p2.updateBoundsCollisionGroup();
 
         this.groupBullets = game.add.group();
