@@ -85,7 +85,7 @@ class Player {
     else if (this.cursors.right.isDown) { this.moveRight(); }
   
     game.debug.text('speed: ' + this.sprite.speed, 32, 120);
-    game.debug.text(this.sprite.mass, this.sprite.x - game.camera.x - 10, this.sprite.y - game.camera.y+ 5);
+    game.debug.text(this.sprite.health, this.sprite.x - game.camera.x - 10, this.sprite.y - game.camera.y+ 5);
 
     this.socket.emit('move_player', this.toJson());
   }
