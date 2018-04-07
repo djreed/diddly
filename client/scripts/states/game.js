@@ -5,13 +5,15 @@ import Player from 'scripts/class/player';
 import Bullets from 'scripts/class/bullets';
 
 class Game {
+
     create(game) {
         this.socket = io.connect(window.location.host);
         this.players = [];
         this.bullets = [];
 
-        var WHITE = '#FFFFFF'
-        var BLACK = '#000000'
+        var WIDTH = 500;
+        var WHITE = '#FFFFFF';
+        var BLACK = '#000000';
         var RED = '#FF0000';
         var GREEN = '#00FF00';
         var GREY = '#555555';
@@ -21,7 +23,7 @@ class Game {
         game.physics.p2.restitution = 0.8;
 
         game.stage.backgroundColor = '#FFFFFF';
-        game.world.setBounds(0, 0, 500, 500);
+        game.world.setBounds(0, 0, WIDTH, 500);
         game.add.tileSprite(0, 0, game.world.width, game.world.height, 'grid');
 
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
@@ -61,7 +63,7 @@ class Game {
                     this.player.sprite.kill();
                     this.player.x = game.world.randomX;
                     this.player.y = game.world.randomY;
-                    this.player.mass = 20;
+                    this.player.health = 20;
                     this.player.generateSprite();
                 }
             });
