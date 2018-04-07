@@ -2,10 +2,10 @@
  * Created by viller_m on 19/05/15.
  */
 class Enemy {
-    constructor(game, enemy, groupColision) {
+    constructor(game, enemy, groupCollision) {
         this.game = game;
         this.enemy = enemy;
-        this.groupColision = groupColision;
+        this.groupColision = groupCollision;
         this.generateSprite();
     }
 
@@ -15,7 +15,7 @@ class Enemy {
         this.sprite = this.game.add.sprite(this.enemy.x, this.enemy.y, bmd);
         this.game.physics.p2.enable(this.sprite, false);
 
-        this.setColision();
+        this.setCollision();
 
         this.sprite.id = this.enemy.id;
         this.sprite.username = '';
@@ -38,12 +38,12 @@ class Enemy {
         return bmd;
     }
 
-    setColision(){
+    setCollision(){
         this.sprite.body.static = true;
         this.sprite.body.setCircle(this.sprite.width / 2);
         this.sprite.body.fixedRotation = false;
-        this.sprite.body.setCollisionGroup(this.groupColision[1]);
-        this.sprite.body.collides([this.groupColision[0], this.groupColision[2]]);
+        this.sprite.body.setCollisionGroup(this.groupCollision[1]);
+        this.sprite.body.collides([this.groupColision[0], this.groupCollision[2]]);
     }
 
     move(particle){

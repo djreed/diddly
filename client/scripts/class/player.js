@@ -59,10 +59,10 @@ class Player {
     this.sprite.body.fixedRotation = false;
     this.sprite.body.setCollisionGroup(this.groupColision[0]);
     this.sprite.body.collides(this.groupCollision[1], this.enemyCallback, this);
-    this.sprite.body.collides(this.groupCollision[2], this.particlesCallback, this);
+    this.sprite.body.collides(this.groupCollision[2], this.bulletsCallback, this);
   }
 
-  bulletCallback(body1, body2) {
+  bulletsCallback(body1, body2) {
     this.sprite.kill();
     body2.sprite.kill();
     this.socket.emit('kill_player', this.toJson())

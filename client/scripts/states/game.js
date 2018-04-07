@@ -2,21 +2,25 @@
 
 import Enemy from 'scripts/class/enemy';
 import Player from 'scripts/class/player';
-import Particules from 'scripts/class/particles';
+import Bullets from 'scripts/class/bullets';
 
 class Game {
     create(game) {
         this.socket = io.connect(window.location.host);
         this.players = [];
-        this.particules = [];
+        this.bullets = [];
 
-        this.color = ['#999999', '#CCCCCC', '#00FF00', '#0000FF', '#FF0000', '#FFFF00'];
+        var WHITE = '#FFFFFF'
+        var BLACK = '#000000'
+        var RED = '#FF0000';
+        var GREEN = '#00FF00';
+        var GREY = '#555555';
 
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.restitution = 0.8;
 
-        game.stage.backgroundColor = '#000';
+        game.stage.backgroundColor = '#FFFFFF';
         game.world.setBounds(0, 0, 500, 500);
         game.add.tileSprite(0, 0, game.world.width, game.world.height, 'grid');
 
@@ -24,13 +28,13 @@ class Game {
 
         var groupPlayer = game.physics.p2.createCollisionGroup();
         var groupPlayers = game.physics.p2.createCollisionGroup();
-        var groupParticule = game.physics.p2.createCollisionGroup();
-        this.groupColision = [groupPlayer, groupPlayers, groupParticule];
+        var groupBullets = game.physics.p2.createCollisionGroup();
+        this.groupCollision = [groupPlayer, groupPlayers, groupBullets];
         game.physics.p2.updateBoundsCollisionGroup();
 
-        this.groupParticules = game.add.group();
-        this.groupParticules.enableBody = true;
-        this.groupParticules.physicsBodyType = Phaser.Physics.P2JS;
+        this.groupBullets = game.add.group();
+        this.groupBullets.enableBody = true;
+        this.groupBullets.physicsBodyType = Phaser.Physics.P2JS;
 
         this.groupEnemy = game.add.group();
         this.groupEnemy.enableBody = true;
@@ -41,23 +45,12 @@ class Game {
 
     setEventHandlers(game){
         this.socket.on('connect', () => {
-            this.player = new Player(game, this.socket, this.groupColision);
+            this.player = new Player(game, this.socket, this.groupCollision);
             this.socket.emit('new_player', this.player.toJson());
-
-            // particules
-            this.socket.on('getParticules', (particles) => {
-                for (var particle of particles) {
-                    this.particules[particle.id] = new Particules(game, particle, this.groupColision);
-                }
-            });
-
-            this.socket.on('update_particles', (particle) => {
-                this.particules[particle.id].move(particle);
-            });
 
             // new player
             this.socket.on('new_player', (enemy) => {
-                this.players[enemy.id] = new Enemy(game, enemy, this.groupColision);
+                this.players[enemy.id] = new Enemy(game, enemy, this.groupCollision);
             });
 
             // Player

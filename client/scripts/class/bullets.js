@@ -32,7 +32,7 @@ class Bullets {
         return bmd;
     }
 
-    setColision(){
+    setCollision(){
         this.sprite.body.static = true;
         this.sprite.body.setCircle(this.sprite.width / 2);
         this.sprite.body.fixedRotation = false;
