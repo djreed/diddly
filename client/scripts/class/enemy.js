@@ -20,7 +20,7 @@ class Enemy {
         this.sprite.id = this.enemy.id;
         this.sprite.username = this.enemy.username;
         this.sprite.color = '#FF0000';
-        this.sprite.mass = this.enemy.mass;
+        this.sprite.health = this.enemy.health;
         this.sprite.speed_base = 5000;
         this.sprite.speed = this.enemy.speed;
         this.sprite.width = this.enemy.width;
@@ -28,11 +28,11 @@ class Enemy {
     }
 
     generateCircle(){
-        var bitmapSize = this.enemy.mass * 2;
+        var bitmapSize = this.enemy.health * 2;
         var bmd = this.game.add.bitmapData(bitmapSize, bitmapSize);
         bmd.ctx.fillStyle = '#FF0000';
         bmd.ctx.beginPath();
-        bmd.ctx.arc(this.enemy.mass, this.enemy.mass, this.enemy.mass, 0, Math.PI*2, true);
+        bmd.ctx.arc(this.enemy.health, this.enemy.health, this.enemy.health, 0, Math.PI*2, true);
         bmd.ctx.closePath();
         bmd.ctx.fill();
         return bmd;
