@@ -5,7 +5,7 @@ class Enemy {
     constructor(game, enemy, groupCollision) {
         this.game = game;
         this.enemy = enemy;
-        this.groupColision = groupCollision;
+        this.groupCollision = groupCollision;
         this.generateSprite();
     }
 
@@ -43,7 +43,7 @@ class Enemy {
         this.sprite.body.setCircle(this.sprite.width / 2);
         this.sprite.body.fixedRotation = false;
         this.sprite.body.setCollisionGroup(this.groupCollision[1]);
-        this.sprite.body.collides([this.groupColision[0], this.groupCollision[2]]);
+        this.sprite.body.collides([this.groupCollision[0], this.groupCollision[2]]);
     }
 
     move(particle){

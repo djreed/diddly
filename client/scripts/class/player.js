@@ -10,18 +10,11 @@ class Player {
     this.id = socket.io.engine.id;
     this.color = '#0000FF';
     this.mass = 20;
-    this.speed = 1000;
+    this.speed = 100;
     this.x = this.game.world.randomX;
     this.y = this.game.world.randomY;
 
-    this.cursors = XV.game.input.keyboard.createCursorKeys();
-
-    this.wasd = {
-      up: XV.game.input.keyboard.addKey(Phaser.Keyboard.W),
-      down: XV.game.input.keyboard.addKey(Phaser.Keyboard.S),
-      left: XV.game.input.keyboard.addKey(Phaser.Keyboard.A),
-      right: XV.game.input.keyboard.addKey(Phaser.Keyboard.D),
-    };
+    this.cursors = game.input.keyboard.createCursorKeys();
 
     this.generateSprite();
   }
@@ -37,8 +30,7 @@ class Player {
       this.sprite.id = this.id;
       this.sprite.color = this.color;
       this.sprite.mass = this.mass;
-      this.sprite.speed_base = 5000;
-      this.sprite.speed = this.sprite.speed_base / this.sprite.mass;
+      this.sprite.speed = this.speed / this.mass;
 
       this.game.camera.follow(this.sprite);
   }
@@ -57,8 +49,7 @@ class Player {
   setCollision() {
     this.sprite.body.setCircle(this.sprite.width / 2);
     this.sprite.body.fixedRotation = false;
-    this.sprite.body.setCollisionGroup(this.groupColision[0]);
-    this.sprite.body.collides(this.groupCollision[1], this.enemyCallback, this);
+    this.sprite.body.setCollisionGroup(this.groupCollision[0]);
     this.sprite.body.collides(this.groupCollision[2], this.bulletsCallback, this);
   }
 
@@ -83,10 +74,16 @@ class Player {
   }
 
   update(game){
-    game.physics.arcade.moveToPointer(this.sprite, this.speed);
+    if (this.cursors.up.isDown) { if (this.y - this.sprite.speed > 0) { this.y -= this.sprite.speed; } }
+    else if (this.cursors.down.isDown) { if (this.y + this.sprite.speed < this.game.world.height) { this.y += this.sprite.speed; } }
+    if (this.cursors.left.isDown) { if (this.x - this.sprite.speed > 0) { this.x -= this.sprite.speed; } }
+    else if (this.cursors.right.isDown) { if (this.x + this.sprite.speed < this.game.world.width) { this.x += this.sprite.speed; } }
 
     game.debug.text('speed: ' + this.sprite.speed, 32, 120);
     game.debug.text(this.sprite.mass, this.sprite.x - game.camera.x - 10, this.sprite.y - game.camera.y+ 5);
+
+    this.sprite.kill();
+    this.generateSprite();
 
     this.socket.emit('move_player', this.toJson());
   }

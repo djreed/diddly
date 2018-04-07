@@ -28,17 +28,13 @@ class Game {
 
         var groupPlayer = game.physics.p2.createCollisionGroup();
         var groupPlayers = game.physics.p2.createCollisionGroup();
-        var groupBullets = game.physics.p2.createCollisionGroup();
-        this.groupCollision = [groupPlayer, groupPlayers, groupBullets];
+        var groupBullet = game.physics.p2.createCollisionGroup();
+        this.groupCollision = [groupPlayer, groupPlayers, groupBullet];
         game.physics.p2.updateBoundsCollisionGroup();
 
         this.groupBullets = game.add.group();
         this.groupBullets.enableBody = true;
         this.groupBullets.physicsBodyType = Phaser.Physics.P2JS;
-
-        this.groupEnemy = game.add.group();
-        this.groupEnemy.enableBody = true;
-        this.groupEnemy.physicsBodyType = Phaser.Physics.P2JS;
 
         this.setEventHandlers(game);
     }
