@@ -15,7 +15,12 @@ class Player {
     this.y = this.game.world.randomY;
 
     this.cursors = game.input.keyboard.createCursorKeys();
-
+    this.wasd = {
+      up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+      down: game.input.keyboard.addKey(Phaser.Keyboard.S),
+      left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+      right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+    };
     this.generateSprite();
   }
 
@@ -74,10 +79,10 @@ class Player {
   }
 
   update(game){
-    if (this.cursors.up.isDown) { if (this.y - this.sprite.speed > 0) { this.y -= this.sprite.speed; } }
-    else if (this.cursors.down.isDown) { if (this.y + this.sprite.speed < this.game.world.height) { this.y += this.sprite.speed; } }
-    if (this.cursors.left.isDown) { if (this.x - this.sprite.speed > 0) { this.x -= this.sprite.speed; } }
-    else if (this.cursors.right.isDown) { if (this.x + this.sprite.speed < this.game.world.width) { this.x += this.sprite.speed; } }
+    if (this.cursors.up.isDown || this.wasd.up.isDown) { if (this.y - this.sprite.speed > 0) { this.y -= this.sprite.speed; } }
+    else if (this.cursors.down.isDown || this.wasd.down.isDown) { if (this.y + this.sprite.speed < this.game.world.height) { this.y += this.sprite.speed; } }
+    if (this.cursors.left.isDown || this.wasd.left.isDown) { if (this.x - this.sprite.speed > 0) { this.x -= this.sprite.speed; } }
+    else if (this.cursors.right.isDown || this.wasd.right.isDown) { if (this.x + this.sprite.speed < this.game.world.width) { this.x += this.sprite.speed; } }
 
     game.debug.text('speed: ' + this.sprite.speed, 32, 120);
     game.debug.text(this.sprite.mass, this.sprite.x - game.camera.x - 10, this.sprite.y - game.camera.y+ 5);

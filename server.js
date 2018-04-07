@@ -32,10 +32,11 @@ io.on('connection', function(socket){
 
     socket.on('fire_bullet', function(user, direction){
         me = user;
-        id = 
+        id = user.id;
         bullets[id] = {
             x: me.x,
             y: me.y,
+            direction: direction,
             color: RED,
             id: id,
             mass: 1
