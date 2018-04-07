@@ -17,7 +17,7 @@ class Preload {
 
         // Load game assets here
         this.load.image('logo', 'assets/logo.png');
-        this.load.image('grid', 'assets/grid.jpeg');
+        this.load.image('forest', 'assets/forest.png');
 
         game.time.advancedTiming = true;
     }

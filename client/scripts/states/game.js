@@ -13,7 +13,10 @@ class Game {
         this.weapons = [];
         game.load.spritesheet('bullet', 'assets/sprites/rgblaser.png', 4, 4);
 
-        var WIDTH = 500;
+        var WIDTH = 1000;
+        var HEIGHT = 800;
+        var WHITE = '#FFFFFF';
+        var BLACK = '#000000';
         var RED = '#FF0000';
         var GREEN = '#00FF00';
         var GREY = '#555555';
@@ -23,8 +26,9 @@ class Game {
         game.physics.p2.restitution = 0.8;
 
         game.stage.backgroundColor = '#FFFFFF';
-        game.world.setBounds(0, 0, WIDTH, WIDTH);
-        game.add.tileSprite(0, 0, game.world.width, game.world.height, 'grid');
+
+        game.world.setBounds(0, 0, WIDTH, HEIGHT);
+        game.add.image(0, 0, 'forest');
 
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
 
