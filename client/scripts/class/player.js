@@ -34,7 +34,7 @@ class Player {
     var bmd = this.generateCircle(this.color);
 
     this.sprite = this.game.add.sprite(this.x, this.y, bmd);
-    this.game.physics.p2.enable(this.sprite, false);
+    this.game.physics.p2.enable(this.sprite);
 
     this.setCollision();
 
@@ -86,7 +86,9 @@ class Player {
     };
   }
 
-  update(game){
+  update(game, blockedLayer){
+    //this.game.physics.p2.collide(this.player.sprite, blockedLayer);
+
     //shoot
     if (this.game.input.activePointer.isDown) { this.fireBullet(this.game.physics.arcade.angleToPointer(this.sprite)) }
 

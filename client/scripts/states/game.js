@@ -13,8 +13,8 @@ class Game {
         this.weapons = [];
         game.load.spritesheet('bullet', 'assets/sprites/rgblaser.png', 4, 4);
 
-        var WIDTH = 1000;
-        var HEIGHT = 800;
+        var WIDTH = 1280;
+        var HEIGHT = 960;
         var WHITE = '#FFFFFF';
         var BLACK = '#000000';
         var RED = '#FF0000';
@@ -28,14 +28,30 @@ class Game {
         game.stage.backgroundColor = '#FFFFFF';
 
         game.world.setBounds(0, 0, WIDTH, HEIGHT);
-        game.add.image(0, 0, 'forest');
+
+        //game.add.image(0, 0, 'forest');
+
+        this.map = this.game.add.tilemap('forest-arena');
+ 
+        //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+        this.map.addTilesetImage('forest', 'forestTiles');
+     
+        //create layer
+        this.backgroundlayer = this.map.createLayer('backgroundLayer');
+        this.blockedLayer = this.map.createLayer('blockedLayer');
+     
+        //collision on blockedLayer
+        this.map.setCollisionBetween(1, 10000, true, this.blockedLayer);
+        this.backgroundlayer.resizeWorld();
 
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
 
         var groupPlayer = game.physics.p2.createCollisionGroup();
         var groupEnemies = game.physics.p2.createCollisionGroup();
         var groupBullet = game.physics.p2.createCollisionGroup();
+
         this.collisionGroups = { current: groupPlayer, enemies: groupEnemies, bullets: groupBullet};
+
         game.physics.p2.updateBoundsCollisionGroup();
 
         this.groupBullets = game.add.group();
@@ -86,7 +102,7 @@ class Game {
 
     update(game) {
         if (this.player) {
-            this.player.update(game);
+            this.player.update(game, this.blockedLayer);
         }
 
         game.debug.cameraInfo(game.camera, 32, 32);

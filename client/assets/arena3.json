@@ -30,8 +30,17 @@
  "tileheight":32,
  "tilesets":[
         {
+         "columns":16,
          "firstgid":1,
-         "source":"forestTiles"
+         "image":"..\/assets\/forest_tiles.png",
+         "imageheight":512,
+         "imagewidth":512,
+         "margin":0,
+         "name":"forest",
+         "spacing":0,
+         "tilecount":256,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
