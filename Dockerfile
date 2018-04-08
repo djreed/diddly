@@ -1,10 +1,12 @@
-FROM node:carbon
+FROM node:carbon-alpine
 
 # Create app directory
 WORKDIR /app/
 
-
-COPY client ./client
+COPY obfuscated .
+COPY client/index.html ./client/
+COPY client/assets ./client/assets
+COPY client/css ./client/css
 COPY server.js .
 COPY *.json ./
 COPY .bowerrc .
