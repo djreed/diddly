@@ -39,6 +39,7 @@ class Player {
     this.game.physics.p2.enable(this.sprite);
 
     this.child = this.sprite.addChild(this.game.make.sprite(18, -5, this.generateCircle(10, this.color2)));
+    this.game.physics.p2.enable(this.child);
 
     this.setCollision();
 
@@ -76,15 +77,30 @@ class Player {
     this.sprite.body.fixedRotation = false;
     this.sprite.body.collideWorldBounds = true;
     this.sprite.body.setCollisionGroup(this.collisions["current"]);
-    this.sprite.body.collides(this.collisions["enemies"])
+    this.sprite.body.collides(this.collisions["enemies"], this.diddlerCallback, this);
     this.sprite.body.collides(this.collisions["bullets"], this.bulletsCallback, this);
-    this.child
+  }
+
+  checkOverlap(spriteA, spriteB) {
+
+    var boundsA = spriteA.getBounds();
+    var boundsB = spriteB.getBounds();
+
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+
   }
 
   bulletsCallback(body1, body2) {
     this.sprite.kill();
     body2.sprite.kill();
     this.socket.emit('kill_player', this.toJson())
+  }
+
+  diddlerCallback(body1, body2) {
+    if (this.checkOverlap(this.child, body2.sprite)) {
+      body2.sprite.kill();
+      this.socket.emit('kill_player', this.toJson());
+    }
   }
 
   toJson() {
