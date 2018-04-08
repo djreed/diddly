@@ -42,7 +42,7 @@ class Enemy {
         this.sprite.body.static = true;
         this.sprite.body.setCircle(this.sprite.width / 2);
         this.sprite.body.fixedRotation = false;
-        this.sprite.body.setCollisionGroup(this.collisions["players"]);
+        this.sprite.body.setCollisionGroup(this.collisions["enemies"]);
         this.sprite.body.collides([this.collisions["current"], this.collisions["bullets"]]);
     }
 
