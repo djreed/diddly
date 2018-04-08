@@ -12,7 +12,8 @@ class Game {
         this.bullets = [];
         this.weapons = [];
 
-        var WIDTH = 500;
+        var WIDTH = 1280;
+        var HEIGHT = 960;
         var RED = '#FF0000';
         var GREEN = '#00FF00';
         var GREY = '#555555';
@@ -23,7 +24,17 @@ class Game {
 
         game.stage.backgroundColor = '#FFFFFF';
         game.world.setBounds(0, 0, WIDTH, WIDTH);
-        game.add.tileSprite(0, 0, game.world.width, game.world.height, 'grid');
+        
+        this.map = this.game.add.tilemap('forest-arena');
+ 
+        //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+        this.map.addTilesetImage('forest', 'forestTiles');
+     
+        //create layer
+        this.backgroundlayer = this.map.createLayer('backgroundLayer');
+        this.blockedLayer = this.map.createLayer('blockedLayer');
+     
+        this.backgroundlayer.resizeWorld();
 
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
 

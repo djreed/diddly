@@ -17,7 +17,8 @@ class Preload {
 
         // Load game assets here
         this.load.image('logo', 'assets/logo.png');
-        this.load.image('grid', 'assets/grid.jpeg');
+        this.load.tilemap('forest-arena', 'assets/arena3.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.image('forestTiles', 'assets/forest_tiles.png');
         this.load.spritesheet('bullet', 'assets/rgblaser.png', 4, 4);
         game.time.advancedTiming = true;
     }
