@@ -40,9 +40,14 @@ class Game {
         this.backgroundlayer = this.map.createLayer('backgroundLayer');
         this.blockedLayer = this.map.createLayer('blockedLayer');
      
-        //collision on blockedLayer
-        this.map.setCollisionBetween(1, 10000, true, this.blockedLayer);
         this.backgroundlayer.resizeWorld();
+
+        //collision on blockedLayer
+        this.map.setCollisionBetween(1, 10000);
+        
+
+        game.physics.p2.convertTilemap(this.map, this.blockedLayer);
+        game.physics.p2.setBoundsToWorld(true, true, true, true, true);
 
         game.camera.bounds.setTo(-game.width/2, -game.height/2, game.world.width + game.width, game.world.height + game.height);
 
@@ -50,7 +55,7 @@ class Game {
         var groupEnemies = game.physics.p2.createCollisionGroup();
         var groupBullet = game.physics.p2.createCollisionGroup();
 
-        this.collisionGroups = { current: groupPlayer, enemies: groupEnemies, bullets: groupBullet};
+        this.collisionGroups = { current: groupPlayer, enemies: groupEnemies, bullets: groupBullet, blocks: this.blockedLayer };
 
         game.physics.p2.updateBoundsCollisionGroup();
 

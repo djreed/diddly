@@ -62,7 +62,7 @@ class Player {
     this.sprite.body.fixedRotation = false;
     this.sprite.body.collideWorldBounds = true;
     this.sprite.body.setCollisionGroup(this.collisions["current"]);
-    this.sprite.body.collides(this.collisions["enemies"])
+    this.sprite.body.collides(this.collisions["enemies"], this.collisions["blocks"])
     this.sprite.body.collides(this.collisions["bullets"], this.bulletsCallback, this);
   }
 
