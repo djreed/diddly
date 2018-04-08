@@ -39,7 +39,6 @@ class Player {
     this.game.physics.p2.enable(this.sprite);
 
     this.child = this.sprite.addChild(this.game.make.sprite(18, -5, this.generateCircle(10, this.color2)));
-    this.game.physics.p2.enable(this.child);
 
     this.setCollision();
 
@@ -113,7 +112,8 @@ class Player {
       y: this.sprite.y,
       rotation: this.sprite.body.rotation,
       height: this.sprite.height,
-      width: this.sprite.width
+      width: this.sprite.width,
+      child: this.child.id
     };
   }
 
