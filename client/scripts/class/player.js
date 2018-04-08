@@ -10,6 +10,7 @@ class Player {
     this.collisions = collisions;
     this.id = socket.io.engine.id;
     this.color = '#00FF00';
+    this.color2 = '#FF0000';
     this.health = 20;
     this.speed = 5;
 
@@ -32,10 +33,12 @@ class Player {
   }
 
   generateSprite(){
-    var bmd = this.generateCircle(this.color);
+    var bmd = this.generateCircle(40, this.color);
 
     this.sprite = this.game.add.sprite(this.x, this.y, bmd);
     this.game.physics.p2.enable(this.sprite);
+
+    this.child = this.sprite.addChild(this.game.make.sprite(18, -5, this.generateCircle(10, this.color2)));
 
     this.setCollision();
 
@@ -47,10 +50,9 @@ class Player {
     this.game.camera.follow(this.sprite);
   }
 
-  generateCircle(){
-    var bitmapSize = this.health * 2
+  generateCircle(bitmapSize, color){
     var bmd = this.game.add.bitmapData(bitmapSize, bitmapSize);
-    bmd.ctx.fillStyle = this.color;
+    bmd.ctx.fillStyle = color;
     bmd.ctx.beginPath();
     bmd.ctx.moveTo(0, 0);
     bmd.ctx.lineTo(bitmapSize, bitmapSize/2);
@@ -76,6 +78,7 @@ class Player {
     this.sprite.body.setCollisionGroup(this.collisions["current"]);
     this.sprite.body.collides(this.collisions["enemies"])
     this.sprite.body.collides(this.collisions["bullets"], this.bulletsCallback, this);
+    this.child
   }
 
   bulletsCallback(body1, body2) {
