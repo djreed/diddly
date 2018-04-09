@@ -1,0 +1,11 @@
+{
+  "name": "hack-the-pack-2018",
+  "version": "0.0.1",
+  "description": "",
+  "authors": [
+    ""
+  ],
+  "dependencies": {
+    "phaser-official": "~2.6.2"
+  }
+}
