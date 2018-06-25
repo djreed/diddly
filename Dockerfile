@@ -16,4 +16,4 @@ RUN yarn
 
 CMD [ "yarn", "start" ]
 
-EXPOSE 8080
+EXPOSE 80
