@@ -8,14 +8,10 @@ WORKDIR /usr/src/app
 # COPY obfuscated .
 COPY client ./client
 COPY server.js ./
-COPY *.json ./
-COPY ./.bowerrc ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN mkdir ./client/bower_components
-
-RUN npm install --global bower
-RUN npm install
-RUN bower install
+RUN yarn
 
 EXPOSE $PORT
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]
