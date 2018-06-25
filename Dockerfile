@@ -5,13 +5,15 @@ RUN apk add --update git
 # Create app directory
 WORKDIR /usr/src/app
 
-# COPY obfuscated .
+# Copy required files
 COPY client ./client
 COPY server.js ./
 COPY package.json ./
 COPY yarn.lock ./
 
+# Download dependencies
 RUN yarn
 
-EXPOSE $PORT
 CMD [ "yarn", "start" ]
+
+EXPOSE 80
