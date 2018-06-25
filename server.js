@@ -51,7 +51,7 @@ io.on('connection', function(socket){
 
 });
 
-var PORT = process.env.PORT
+var PORT = 8080
 
 server.listen(PORT, function(){
     console.log('listening on *:' + PORT);
