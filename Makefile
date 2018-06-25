@@ -1,3 +1,3 @@
 default:
-	npm install	
+	yarn install	
 	sudo docker build . -t hack-the-pack
